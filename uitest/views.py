@@ -61,7 +61,6 @@ def updateUiTestCases(request):
 @csrf_exempt
 # 返回ui cases
 def getUiTestCase(request):
-    print(request.get_full_path())
     result = {
         'PASS': {"code": 200},
         'OTHER': {"message": "please use POST"},
@@ -76,6 +75,7 @@ def getUiTestCase(request):
         return Response(result['OTHER'], status=HTTP_412_PRECONDITION_FAILED)
 
 
+# 根据id 获取ui cases 信息
 def showUiTestCase(id=None):
     if id == 'all':
         caseInfo = UiTestCasesList.objects.filter()
@@ -85,7 +85,73 @@ def showUiTestCase(id=None):
         return sqlFilter(caseInfo)
 
 
+# 数据库增加ui case
 def addUiTestCase(caseName, describe, beginSteps, steps, endSteps, owner, project, platform, showToAll=True):
     into = UiTestCasesList(caseName=str(caseName), describe=str(describe), beginSteps=str(beginSteps), steps=str(steps),
                            endSteps=str(endSteps), owner=owner, showToAll=showToAll, project=project, platform=platform)
     into.save()
+
+
+# 增加ui case set
+def updateUiTestCasesSet(request):
+    result = {
+        'PASS': {"code": 200, "data": {"message": "更新成功"}},
+        'OTHER': {"message": "please use POST"},
+    }
+    if request.method == 'POST':
+        information = json.loads(request.body.decode())
+        print(not sqlFilter(UiTestCasesSet.objects.filter(id=information['id'])))
+        if sqlFilter(UiTestCasesSet.objects.filter(id=information['id'])):
+            if sqlFilter(UiTestCasesSet.objects.filter(id=information['id'])):
+                if 'testCases' in information.keys():
+                    testCases = information['testCases']
+                    UiTestCasesSet.objects.filter(id=information['id']).update(testCases=testCases)
+                if 'owner' in information.keys():
+                    owner = information['owner']
+                    UiTestCasesSet.objects.filter(id=information['id']).update(owner=owner)
+                if 'name' in information.keys():
+                    name = information['name']
+                    UiTestCasesSet.objects.filter(id=information['id']).update(name=name)
+                if 'showToAll' in information.keys():
+                    showToAll = information['showToAll']
+                    UiTestCasesSet.objects.filter(id=information['id']).update(showToAll=showToAll)
+                if 'describe' in information.keys():
+                    describe = information['describe']
+                    UiTestCasesSet.objects.filter(id=information['id']).update(describe=describe)
+                return Response(result['PASS'], status=HTTP_200_OK)
+        else:
+            addUiTestCaseSet(testCases=information['testCases'], describe=information['describe'],
+                             owner=information['owner'], name=information['name'],
+                             showToAll=information['showToAll'])
+
+
+# 数据库增加ui cases set
+def addUiTestCaseSet(testCases, describe, owner, showToAll=True):
+    into = UiTestCasesList(testCases=str(testCases), describe=str(describe), owner=str(owner),
+                           showToAll=showToAll)
+    into.save()
+
+
+def getUiTestCaseSet(request):
+    result = {
+        'PASS': {"code": 200},
+        'OTHER': {"message": "please use POST"},
+    }
+    if request.method == 'GET':
+        information = stringToDict(request.get_full_path())
+        id = information['id']
+        result['PASS']['data'] = showUiTestCasesSet(id=id)
+        print(result['PASS'])
+        return Response(result['PASS'], status=HTTP_200_OK)
+    else:
+        return Response(result['OTHER'], status=HTTP_412_PRECONDITION_FAILED)
+
+
+# 根据id 获取ui cases set 信息
+def showUiTestCasesSet(id=None):
+    if id == 'all':
+        caseInfo = UiTestCasesSet.objects.filter()
+        return sqlFilter(caseInfo)
+    else:
+        caseInfo = UiTestCasesSet.objects.filter(id=id)
+        return sqlFilter(caseInfo)

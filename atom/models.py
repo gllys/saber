@@ -101,8 +101,10 @@ class UiTestCasesList(models.Model):
 class UiTestCasesSet(models.Model):
     # id
     id = models.AutoField(primary_key=True)
+    # name
+    name = models.CharField(max_length=50, blank=True, null=True)
     # TestCases ids
-    testCases = models.CharField(max_length=300, blank=True, null=True)
+    testCasesId = models.CharField(max_length=300, blank=True, null=True)
     # 拥有者
     owner = models.CharField(max_length=50, blank=True, null=True)
     # 是否为公用

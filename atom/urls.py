@@ -55,7 +55,9 @@ urlpatterns = [
     path('updateMongodbToMysql/', updateMongodbToMysql),
     path('user/register/', register),
     path('update/UiTestCases/', updateUiTestCases),
+    path('update/UiTestCasesSet/', updateUiTestCasesSet),
     path('show/UiTestCases/', getUiTestCase),
+    path('show/UiTestCasesSet/', getUiTestCaseSet),
     # weixing's
     path('docs/', include_docs_urls(title='测试系统')),
     # update cases and get cases 路由

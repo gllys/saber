@@ -17,9 +17,15 @@ import json
 # r = requests.get("http://127.0.0.1:8000/show/UiTestCases/", params=params)
 
 
-data = json.dumps({'id': '5', 'describe': '231', 'caseName': '万达单', 'beginSteps': '', 'steps': '', 'endSteps': '123',
-                   'owner': 'wanyl', 'showToAll': True, 'project': '', 'platform': ''})
-r = requests.post("http://127.0.0.1:8000/update/UiTestCases/", data=data)
+# data = json.dumps({'id': '5', 'describe': '2131', 'caseName': '万达单', 'beginSteps': '', 'steps': '', 'endSteps': '123',
+#                    'owner': 'wanyl', 'showToAll': True, 'project': '', 'platform': ''})
+# r = requests.post("http://127.0.0.1:8000/update/UiTestCases/", data=data)
 
+# data = json.dumps({'id': '5', 'describe': '231', })
+# r = requests.post("http://127.0.0.1:8000/update/UiTestCasesSet/", data=data)
+
+
+params = {'id': 'all'}
+r = requests.get("http://127.0.0.1:8000/show/UiTestCasesSet/", params=params)
 print(r.json())
 print(r.status_code)
