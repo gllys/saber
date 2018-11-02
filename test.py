@@ -25,8 +25,8 @@ import json
 # r = requests.post("http://127.0.0.1:8000/update/UiTestCasesSet/", data=data)
 
 
-# params = {'id': 'all'}
-# r = requests.get("http://127.0.0.1:8000/show/UiTestCasesSet/", params=params)
+params = {'id': 'all'}
+r = requests.get("http://127.0.0.1:8000/show/UiTestCasesSet/", params=params)
 
 
 print(r.json())
