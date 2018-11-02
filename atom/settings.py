@@ -121,12 +121,20 @@ WSGI_APPLICATION = 'atom.wsgi.application'
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'Saber',
+    #     'USER': 'wanyl',
+    #     'PASSWORD': 'Wanyilei1!',
+    #     'HOST': '192.168.0.54',
+    #     'PORT': '3306',
+    # }
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'Saber',
-        'USER': 'wanyl',
-        'PASSWORD': 'Wanyilei1!',
-        'HOST': '192.168.0.54',
+        'USER': 'root',
+        'PASSWORD': '0823letian',
+        'HOST': '127.0.0.1',
         'PORT': '3306',
     }
 }
