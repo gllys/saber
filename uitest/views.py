@@ -123,6 +123,7 @@ def updateUiTestCasesSet(request):
             addUiTestCaseSet(testCases=information['testCases'], describe=information['describe'],
                              owner=information['owner'], name=information['name'],
                              showToAll=information['showToAll'])
+            return Response(result['PASS'], status=HTTP_200_OK)
 
 
 # 数据库增加ui cases set
@@ -132,6 +133,8 @@ def addUiTestCaseSet(testCases, describe, owner, showToAll=True):
     into.save()
 
 
+@api_view(['GET'])
+@csrf_exempt
 def getUiTestCaseSet(request):
     result = {
         'PASS': {"code": 200},
@@ -142,6 +145,7 @@ def getUiTestCaseSet(request):
         id = information['id']
         result['PASS']['data'] = showUiTestCasesSet(id=id)
         print(result['PASS'])
+
         return Response(result['PASS'], status=HTTP_200_OK)
     else:
         return Response(result['OTHER'], status=HTTP_412_PRECONDITION_FAILED)
